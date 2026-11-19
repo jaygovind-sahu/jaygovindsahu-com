@@ -200,6 +200,18 @@ function ResumePDFDoc({ resume }) {
   );
 }
 
+// ── Download helper (also lazy-imported by the landing page) ─────────────────
+
+export async function downloadResumePdf(resume) {
+  const blob = await pdf(<ResumePDFDoc resume={resume} />).toBlob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "Jaygovind_Sahu_Resume.pdf";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 // ── Download Button Component ─────────────────────────────────────────────────
 
 export default function DownloadButton({ resume }) {
@@ -209,13 +221,7 @@ export default function DownloadButton({ resume }) {
   async function handleDownload() {
     setLoading(true);
     try {
-      const blob = await pdf(<ResumePDFDoc resume={resume} />).toBlob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Jaygovind_Sahu_Resume.pdf";
-      a.click();
-      URL.revokeObjectURL(url);
+      await downloadResumePdf(resume);
     } finally {
       setLoading(false);
     }

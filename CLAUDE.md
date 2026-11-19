@@ -9,6 +9,15 @@ Personal resume website for Jaygovind Sahu. Static site built with Astro, styled
 
 See `README.md` for setup, dev commands, and deployment instructions.
 
+## Pages
+
+| Route     | File                      | Notes                                                                 |
+|-----------|---------------------------|-----------------------------------------------------------------------|
+| `/`       | `src/pages/index.astro`   | Landing page — gallery, project and social links are hardcoded here   |
+| `/resume/`| `src/pages/resume.astro`  | Full resume, rendered from `resume.json`                              |
+
+The landing page's "Download PDF" button lazy-imports `downloadResumePdf` from `DownloadButton.jsx` on hover/click, so the ~2.5 MB PDF bundle never loads with the page. Keep it that way.
+
 ---
 
 ## Key Constraints
